@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+use v5.18;
+
+open(my $iw_output, '-|', "iw wlp2s0 link");
+
+my %params;
+while (my $line = <$iw_output>) {
+	if($line =~ s/^Connected\ to\ ((\w\w:){5}\w\w)\ \(on\ wlp2s0\)/$1/) {
+		chomp($params{'AP'} = $line);
+		next;
+	}
+	$line =~ s/^\s+//;
+	my ($key, $value) = split(/:\ /, $line);
+	chomp($params{$key} = $value);
+}
+
+say "$params{'SSID'} $params{'signal'}";
+say $params{'AP'};
