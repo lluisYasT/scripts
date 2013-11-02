@@ -13,6 +13,6 @@ while (my $line = <$iw_output>) {
 	my ($key, $value) = split(/:\ /, $line);
 	chomp($params{$key} = $value);
 }
+close($iw_output);
 
 say "$params{'SSID'} $params{'signal'}";
-say $params{'AP'};
