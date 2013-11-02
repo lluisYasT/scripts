@@ -19,4 +19,8 @@ while (my $line = <$iw_output>) {
 }
 close($iw_output);
 
-say "$params{'SSID'} $params{'signal'}";
+if($params{'SSID'} && $params{'signal'}) {
+	say "$params{'SSID'} $params{'signal'}";
+} else {
+	say "Disconnected";
+}
