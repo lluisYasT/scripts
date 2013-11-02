@@ -1,7 +1,11 @@
 #!/usr/bin/perl
+# This script gathers wireless information from the output of iw and prints
+# what you want.
+# I use it for my Tmux statusbar
 use v5.18;
 
-open(my $iw_output, '-|', "iw wlp2s0 link");
+my $interface = 'wlp2s0';
+open(my $iw_output, '-|', "iw $interface link");
 
 my %params;
 while (my $line = <$iw_output>) {

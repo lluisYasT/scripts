@@ -1,4 +1,7 @@
 #!/usr/bin/perl
+#Reads energy and power information from the battery and prints current power
+#being used and battery percentage.
+#I use it for my Tmux statusbar
 use v5.18;
 
 my $power_folder = '/sys/devices/LNXSYSTM:00/device:00/PNP0C0A:00/power_supply/BAT0/';
