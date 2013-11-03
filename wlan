@@ -9,13 +9,12 @@ open(my $iw_output, '-|', "iw $interface link");
 
 my %params;
 while (my $line = <$iw_output>) {
-	if($line =~ s/^Connected\ to\ ((\w\w:){5}\w\w)\ \(on\ wlp2s0\)/$1/) {
-		chomp($params{'AP'} = $line);
+	if($line =~ m/^Connected\ to\ ((\w\w:){5}\w\w)\ \(on\ wlp2s0\)/) {
+		chomp($params{'AP'} = $1);
 		next;
 	}
-	$line =~ s/^\s+//;
-	my ($key, $value) = split(/:\ /, $line);
-	chomp($params{$key} = $value);
+	$line =~ m/^(\s+)?(\w+(\s\w+)?):\s+([-0-9a-zA-Z]+(\.\d+)?(\s\w+(\/\w)?)?)$/;
+	chomp($params{$2} = $4);
 }
 close($iw_output);
 
