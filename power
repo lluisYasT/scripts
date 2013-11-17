@@ -20,7 +20,15 @@ chomp(my $energy_now = <$power>);
 
 my $energy_percent = $energy_now * 100 / $energy_full;
 
-printf "%.1fW ", $power_now / 1000000;
+if($power_now) {
+	printf "%.1fW ", $power_now / 1000000;
+} else {
+	if( $energy_percent < 100 ) {
+		print "Charging ";
+	} else {
+		print "Charged ";
+	}
+}
 printf "%.1f%\n", $energy_percent;
 
 close($power);
