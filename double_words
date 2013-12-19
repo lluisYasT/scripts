@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+use v5.18;
+use utf8;
+
+$/ = ".\n";
+while (<>) {
+	next if !s/\b(\w+)((?:\s|<[^>]+>)+)(\1\b)/\e[7m$1\e[m$2\e[7m$3\e[m/ig;
+	s/^(?:[^\e]*\n)+//mg;		# Remove any unmarked lines.
+	s/^/$ARGV: /mg;					# Ensure lines begin with filename.
+	print;
+}
