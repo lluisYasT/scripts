@@ -1,0 +1,27 @@
+#!/usr/bin/env perl
+
+use v5.18;
+use utf8;
+
+if ($#ARGV < 0) {
+	die "\n Uso: envio_correos.pl <numero seguimiento>\n";
+}
+
+foreach my $numero (0 .. $#ARGV) {
+	open(DATA,'-|', "curl -s --data 'accion=LocalizaUno&numero=$ARGV[$numero]&ecorreo=&numeros=' 'aplicacionesweb.correos.es/localizadorenvios/track.asp'") or die "No se ha podido establecer la conexión\n";
+
+	my $datos;
+
+	foreach (<DATA>) {
+		if($_ =~ m/<Evento>/) {
+			$datos = $_;
+		}
+	}
+
+	print "\nNumero: $ARGV[$numero]\n";
+	while($datos =~ m|<Fecha>((?:\d+/?)+)</Fecha><Hora>((?:\d+:?)+)</Hora>.*?<Evento>(.*?)</Evento>|g) {
+		print "\t$1\t$2\t$3\n"
+	}
+
+	close(DATA);
+}
