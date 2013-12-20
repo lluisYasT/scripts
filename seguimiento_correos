@@ -19,8 +19,8 @@ foreach my $numero (0 .. $#ARGV) {
 	}
 
 	print "\nNumero: $ARGV[$numero]\n";
-	while($datos =~ m|<Fecha>((?:\d+/?)+)</Fecha><Hora>((?:\d+:?)+)</Hora>.*?<Evento>(.*?)</Evento>|g) {
-		print "\t$1\t$2\t$3\n"
+	while($datos =~ m|<Fecha>((?:\d+/?)+)</Fecha><Hora>((?:\d+:?)+)</Hora>.*?<Evento>(.*?)</Evento>.*?<DescripcionWeb>(.*?)</DescripcionWeb>|g) {
+		print "\t$1\t$2\t$3\t---\t$4\n"
 	}
 
 	close(DATA);
