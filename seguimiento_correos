@@ -4,7 +4,7 @@ use v5.18;
 use utf8;
 
 if ($#ARGV < 0) {
-	die "\n Uso: envio_correos.pl <numero seguimiento>\n";
+	die "\n Uso: envio_correos <numeros de seguimiento>\n";
 }
 
 foreach my $numero (0 .. $#ARGV) {
@@ -17,11 +17,11 @@ foreach my $numero (0 .. $#ARGV) {
 			$datos = $_;
 		}
 	}
+	close(DATA);
 
 	print "\nNumero: $ARGV[$numero]\n";
 	while($datos =~ m|<Fecha>((?:\d+/?)+)</Fecha><Hora>((?:\d+:?)+)</Hora>.*?<Evento>(.*?)</Evento>.*?<DescripcionWeb>(.*?)</DescripcionWeb>|g) {
 		print "\t$1\t$2\t$3\t---\t$4\n"
 	}
 
-	close(DATA);
 }
