@@ -18,7 +18,12 @@ chomp(my $energy_full = <$power>);
 open($power, '<', $energy_now_file);
 chomp(my $energy_now = <$power>);
 
-my $energy_percent = $energy_now * 100 / $energy_full;
+my $energy_percent;
+if ($energy_full > 0) {
+	$energy_percent = $energy_now * 100 / $energy_full;
+} else {
+	die "Oops, are you sure there's a battery in this computer?\n";
+}
 
 if($power_now) {
 	printf "%.1fW ", $power_now / 1000000;
